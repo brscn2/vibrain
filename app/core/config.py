@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import Field, MongoDsn
+from pydantic import Field, MongoDsn, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +15,11 @@ class Settings(BaseSettings):
         description="MongoDB Atlas connection string",
     )
     mongodb_db: str = Field(default="vibrain", validation_alias="MONGODB_DB")
+    redis_url: RedisDsn = Field(
+        default="redis://localhost:6379/0",
+        validation_alias="REDIS_URL",
+        description="Redis connection string",
+    )
 
 
 @lru_cache
