@@ -1,0 +1,30 @@
+services:
+  redis:
+    image: redis:7.4
+    container_name: vibrain-redis
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - >
+        if [ -n "$${REDIS_PASSWORD}" ];
+        then exec redis-server /usr/local/etc/redis/redis.conf --requirepass "$${REDIS_PASSWORD}";
+        else exec redis-server /usr/local/etc/redis/redis.conf;
+        fi
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+volumes:
+  redis-data:
+
