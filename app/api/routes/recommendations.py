@@ -21,8 +21,6 @@ async def recommend_quote(
     quote = await service.recommend_quote(
         email=payload.email,
         category=payload.category,
-        hamming_threshold=payload.hamming_threshold,
-        candidate_limit=payload.candidate_limit,
     )
 
     if quote is None:

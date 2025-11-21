@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Iterable, Sequence
 
 from app.cache.history import HistoryCache
+from app.core.config import settings
 from app.models.quote import QuoteRepository
 from app.models.user import UserRepository
 from app.schemas.quote import QuoteCategory, QuoteInDB, QuotePublic
@@ -16,21 +17,15 @@ class QuoteRecommendationService:
         quote_repo: QuoteRepository | None = None,
         user_repo: UserRepository | None = None,
         history_cache: HistoryCache | None = None,
-        default_hamming_threshold: int = 16,
-        candidate_limit: int = 10,
     ) -> None:
         self.quote_repo = quote_repo or QuoteRepository()
         self.user_repo = user_repo or UserRepository()
         self.history_cache = history_cache or HistoryCache()
-        self.default_hamming_threshold = default_hamming_threshold
-        self.candidate_limit = candidate_limit
 
     async def recommend_quote(
         self,
         email: str,
         category: QuoteCategory | None = None,
-        hamming_threshold: int | None = None,
-        candidate_limit: int | None = None,
     ) -> QuotePublic | None:
         user = await self.user_repo.get_by_email(email)
         if not user:
@@ -43,8 +38,8 @@ class QuoteRecommendationService:
         user_id = str(user.id or user.email)
         history = await self._load_history(user_id, user)
 
-        threshold = hamming_threshold or self.default_hamming_threshold
-        limit = candidate_limit or self.candidate_limit
+        threshold = settings.hamming_threshold
+        limit = settings.candidate_limit
 
         for active_category in active_categories:
             candidates = await self.quote_repo.fetch_candidates(active_category, limit=limit)

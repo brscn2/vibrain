@@ -20,6 +20,20 @@ class Settings(BaseSettings):
         validation_alias="REDIS_URL",
         description="Redis connection string",
     )
+    hamming_threshold: int = Field(
+        default=5,
+        ge=1,
+        le=10,
+        validation_alias="HAMMING_THRESHOLD",
+        description="Minimum Hamming distance threshold for quote similarity",
+    )
+    candidate_limit: int = Field(
+        default=20,
+        ge=1,
+        le=100,
+        validation_alias="CANDIDATE_LIMIT",
+        description="Maximum number of candidate quotes to fetch per category",
+    )
 
 
 @lru_cache

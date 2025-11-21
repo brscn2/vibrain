@@ -15,8 +15,6 @@ class RecommendationStatus(str, Enum):
 class RecommendationRequest(BaseModel):
     email: EmailStr
     category: QuoteCategory | None = None
-    hamming_threshold: int = Field(default=16, ge=1, le=64)
-    candidate_limit: int = Field(default=10, ge=1, le=100)
 
 
 class RecommendationResponse(BaseModel):
