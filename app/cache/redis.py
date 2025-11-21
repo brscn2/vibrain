@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from aioredis import Redis
+from redis.asyncio import Redis
 
 from app.core.config import settings
 

@@ -20,6 +20,7 @@ class Settings(BaseSettings):
         validation_alias="REDIS_URL",
         description="Redis connection string",
     )
+<<<<<<< HEAD
     hamming_threshold: int = Field(
         default=5,
         ge=1,
@@ -34,6 +35,10 @@ class Settings(BaseSettings):
         validation_alias="CANDIDATE_LIMIT",
         description="Maximum number of candidate quotes to fetch per category",
     )
+=======
+    openai_api_key: str = Field(validation_alias="OPENAI_API_KEY")
+    tavily_api_key: str | None = Field(default=None, validation_alias="TAVILY_API_KEY")
+>>>>>>> 83995126626a7dc10bc2d9015101476c57b92ac8
 
 
 @lru_cache

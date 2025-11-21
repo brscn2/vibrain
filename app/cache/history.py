@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Set
 
-from aioredis import Redis
+from redis.asyncio import Redis
 
 from app.cache.redis import get_redis
 
