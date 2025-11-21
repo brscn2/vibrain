@@ -20,6 +20,8 @@ class Settings(BaseSettings):
         validation_alias="REDIS_URL",
         description="Redis connection string",
     )
+    openai_api_key: str = Field(validation_alias="OPENAI_API_KEY")
+    tavily_api_key: str | None = Field(default=None, validation_alias="TAVILY_API_KEY")
 
 
 @lru_cache

@@ -44,14 +44,13 @@ async def test_recommendation_service_returns_quote():
     user = UserInDB(
         _id="user1",
         email="test@example.com",
-        settings=UserSettings(subscribed_topics=[QuoteCategory.STOICISM]),
+        settings=UserSettings(subscribed_topics=[QuoteCategory.PHILOSOPHY]),
         seen_sim_hashes=[],
     )
     quote = QuoteInDB(
         _id="hash1",
         content="Test quote",
-        author="Author",
-        category=QuoteCategory.STOICISM,
+        category=QuoteCategory.PHILOSOPHY,
         sim_hash="ff00",
         created_at=datetime.now(timezone.utc),
     )
