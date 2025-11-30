@@ -51,7 +51,7 @@ async def test_recommendation_service_returns_quote():
         _id="hash1",
         content="Test quote",
         category=QuoteCategory.PHILOSOPHY,
-        sim_hash="ff00",
+        sim_hash="ff00ff00ff00ff00",
         created_at=datetime.now(timezone.utc),
     )
 

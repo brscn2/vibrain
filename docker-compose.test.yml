@@ -1,0 +1,25 @@
+services:
+  test-backend:
+    build: .
+    container_name: vibrain-test-backend
+    environment:
+      - MONGODB_URI=mongodb://test-mongo:27017/vibrain_test
+      - REDIS_URL=redis://test-redis:6379/0
+      - OPENAI_API_KEY=fake-key-for-testing
+      - TAVILY_API_KEY=fake-key-for-testing
+    depends_on:
+      - test-mongo
+      - test-redis
+    command: uv run pytest -v
+
+  test-redis:
+    image: redis:7.4
+    container_name: vibrain-test-redis
+    command: redis-server --save "" --appendonly no  # Disable persistence for faster tests
+
+  test-mongo:
+    image: mongo:7.0
+    container_name: vibrain-test-mongo
+    environment:
+      MONGO_INITDB_DATABASE: vibrain_test
+
